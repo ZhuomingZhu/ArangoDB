@@ -1,0 +1,5 @@
+# ArangoDB
+IS independent study
+
+ArangoDB Manual
+https://docs.arangodb.com/3.0/ArangoDB_Manual.pdf
