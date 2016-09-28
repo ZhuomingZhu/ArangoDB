@@ -1,6 +1,9 @@
 # ArangoDB
 IS independent study
 
+How to install ArangoDB for Windows
+https://docs.arangodb.com/3.0/Manual/GettingStarted/Installing/Windows.html
+
 ArangoDB Manual
 https://docs.arangodb.com/3.0/ArangoDB_Manual.pdf
 
