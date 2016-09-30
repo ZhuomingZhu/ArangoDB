@@ -8,3 +8,148 @@ ArangoDB Manual
 https://docs.arangodb.com/3.0/ArangoDB_Manual.pdf
 
 https://docs.arangodb.com/3.0/Manual/GettingStarted/index.html
+
+
+------------------------------------- Help -------------------------------------
+Predefined objects:
+  arango:                               ArangoConnection
+  db:                                   ArangoDatabase
+  fm:                                   FoxxManager
+Examples:
+ > db._collections()                    list all collections
+ > db._query(<query>).toArray()         execute an AQL query
+ > db._explain(<query>)                 explain an AQL query
+ > help                                 show help pages
+ > exit
+Note: collection names and statuses may be cached in arangosh.
+To refresh the list of collections and their statuses, issue:
+ > db._collections();
+
+To cancel the current prompt, press CTRL + d.
+
+
+--------------------------- ArangoDatabase (db) help ---------------------------
+Administration Functions:
+  _help()                               this help
+  _flushCache()                         flush and refill collection cache
+
+Collection Functions:
+  _collections()                        list all collections
+  _collection(<name>)                   get collection by identifier/name
+  _create(<name>, <properties>)         creates a new collection
+  _createEdgeCollection(<name>)         creates a new edge collection
+  _drop(<name>)                         delete a collection
+
+Document Functions:
+  _document(<id>)                       get document by handle (_id)
+  _replace(<id>, <data>, <overwrite>)   overwrite document
+  _update(<id>, <data>, <overwrite>,    partially update document
+          <keepNull>)
+  _remove(<id>)                         delete document
+  _exists(<id>)                         checks whether a document exists
+  _truncate()                           delete all documents
+
+Database Management Functions:
+  _createDatabase(<name>)               creates a new database
+  _dropDatabase(<name>)                 drops an existing database
+  _useDatabase(<name>)                  switches into an existing database
+  _drop(<name>)                         delete a collection
+  _name()                               name of the current database
+
+Query / Transaction Functions:
+  _executeTransaction(<transaction>)    execute transaction
+  _query(<query>)                       execute AQL query
+  _createStatement(<data>)              create and return AQL query
+
+----------------------------- ArangoCollection help -----------------------------
+ArangoCollection constructor:
+ > col = db.mycoll;
+ > col = db._create("mycoll");
+
+Administration Functions:
+  name()                                collection name
+  status()                              status of the collection
+  type()                                type of the collection
+  truncate()                            delete all documents
+  properties()                          show collection properties
+  drop()                                delete a collection
+  load()                                load a collection
+  unload()                              unload a collection
+  rename(<new-name>)                    renames a collection
+  getIndexes()                          return defined indexes
+  refresh()                             refreshes the status and name
+  _help()                               this help
+
+Document Functions:
+  count()                               return number of documents
+  save(<data>)                          create document and return handle
+  document(<id>)                        get document by handle (_id or _key)
+  replace(<id>, <data>, <overwrite>)    overwrite document
+  update(<id>, <data>, <overwrite>,     partially update document
+         <keepNull>)
+  remove(<id>)                          delete document
+  exists(<id>)                          checks whether a document exists
+
+Attributes:
+  _database                             database object
+  _id                                   collection identifier
+
+----------------------------- ArangoStatement help -----------------------------
+Create an AQL query:
+ > stmt = new ArangoStatement(db, { "query": "FOR..." })
+ > stmt = db._createStatement({ "query": "FOR..." })
+Set query options:
+ > stmt.setBatchSize(<value>)           set the max. number of results
+                                        to be transferred per roundtrip
+ > stmt.setCount(<value>)               set count flag (return number of
+                                        results in "count" attribute)
+Get query options:
+ > stmt.setBatchSize()                  return the max. number of results
+                                        to be transferred per roundtrip
+ > stmt.getCount()                      return count flag (return number
+                                        of results in "count" attribute)
+ > stmt.getQuery()                      return query string
+                                        results in "count" attribute)
+Bind parameters to a query:
+ > stmt.bind(<key>, <value>)            bind single variable
+ > stmt.bind(<values>)                  bind multiple variables
+Execute query:
+ > cursor = stmt.execute()              returns a cursor
+Get all results in an array:
+ > docs = cursor.toArray()
+Or loop over the result set:
+ > while (cursor.hasNext()) { print(cursor.next()) }
+
+---------------------------- ArangoQueryCursor help ----------------------------
+ArangoQueryCursor constructor:
+ > cursor = stmt.execute()
+Functions:
+  hasNext()                             returns true if there are
+                                        more results to fetch
+  next()                                returns the next document
+  toArray()                             returns all data from the cursor
+  _help()                               this help
+Attributes:
+  _database                             database object
+Example:
+ > stmt = db._createStatement({ "query": "FOR c IN coll RETURN c" })
+ > cursor = stmt.execute()
+ > documents = cursor.toArray()
+ > cursor = stmt.execute()
+ > while (cursor.hasNext()) { print(cursor.next())  }
+
+----------------------------------- More help -----------------------------------
+Pager:
+ > stop_pager()                         stop the pager output
+ > start_pager()                        start the pager
+Pretty printing:
+ > stop_pretty_print()                  stop pretty printing
+ > start_pretty_print()                 start pretty printing
+Color output:
+ > stop_color_print()                   stop color printing
+ > start_color_print()                  start color printing
+Print function:
+ > print(x)                             std. print function
+ > print_plain(x)                       print without prettifying
+                                        and without colors
+ > clear()                              clear screen
