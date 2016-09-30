@@ -9,6 +9,9 @@ https://docs.arangodb.com/3.0/ArangoDB_Manual.pdf
 
 https://docs.arangodb.com/3.0/Manual/GettingStarted/index.html
 
+Import data
+https://docs.arangodb.com/cookbook/Administration/ImportingData.html
+
 
 ------------------------------------- Help -------------------------------------
 Predefined objects:
