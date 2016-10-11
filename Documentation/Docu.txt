@@ -12,6 +12,8 @@ https://docs.arangodb.com/3.0/Manual/GettingStarted/index.html
 Import data
 https://docs.arangodb.com/cookbook/Administration/ImportingData.html
 
+AQL&SQL
+https://www.arangodb.com/why-arangodb/sql-aql-comparison/
 
 ------------------------------------- Help -------------------------------------
 Predefined objects:
