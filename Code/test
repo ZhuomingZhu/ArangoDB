@@ -1,0 +1,302 @@
+127.0.0.1:8529@_system> db._name()
+_system
+
+127.0.0.1:8529@_system> db._useDatabase("example")
+JavaScript exception in file 'c:\Program Files\ArangoDB 3.0.10\share\arangodb3\js\client\modules\@arangodb\arango-database.js' at 975,7: ArangoError 1228: database not found
+!      throw err;
+!      ^
+stacktrace: ArangoError: database not found
+    at Object.exports.checkRequestResult (c:\Program Files\ArangoDB 3.0.10\share\arangodb3\js\client\modules\@arangodb\arangosh.js:98:21)
+    at ArangoDatabase._queryProperties (c:\Program Files\ArangoDB 3.0.10\share\arangodb3\js\client\modules\@arangodb\arango-database.js:451:14)
+    at ArangoDatabase._useDatabase (c:\Program Files\ArangoDB 3.0.10\share\arangodb3\js\client\modules\@arangodb\arango-database.js:968:10)
+    at <shell command>:1:4
+
+
+127.0.0.1:8529@_system> db._databases()
+[
+  "Example",
+  "_system"
+]
+
+127.0.0.1:8529@_system> db._useDatabase("Example")
+true
+
+127.0.0.1:8529@Example> db._create("users")
+[ArangoCollection 1607, "users" (type document, status loaded)]
+
+127.0.0.1:8529@Example> arangosh> c.properties()
+JavaScript exception: ReferenceError: arangosh is not defined
+!arangosh> c.properties()
+!^
+stacktrace: ReferenceError: arangosh is not defined
+    at <shell command>:1:1
+
+
+127.0.0.1:8529@Example> properties()
+JavaScript exception: ReferenceError: properties is not defined
+!properties()
+!^
+stacktrace: ReferenceError: properties is not defined
+    at <shell command>:1:1
+
+
+127.0.0.1:8529@Example> users.properties()
+JavaScript exception: ReferenceError: users is not defined
+!users.properties()
+!^
+stacktrace: ReferenceError: users is not defined
+    at <shell command>:1:1
+
+
+127.0.0.1:8529@Example> db.users.properties()
+{
+  "doCompact" : true,
+  "journalSize" : 33554432,
+  "isSystem" : false,
+  "isVolatile" : false,
+  "waitForSync" : false,
+  "keyOptions" : {
+    "type" : "traditional",
+    "allowUserKeys" : true
+  },
+  "indexBuckets" : 8
+}
+
+127.0.0.1:8529@Example> db.users.save({ name: "user 1" })
+{
+  "_id" : "users/1763",
+  "_key" : "1763",
+  "_rev" : "1763"
+}
+
+127.0.0.1:8529@Example> db.users.save({ name: "user 2" })
+{
+  "_id" : "users/1851",
+  "_key" : "1851",
+  "_rev" : "1851"
+}
+
+127.0.0.1:8529@Example> db.users.save({ "Hello":"World" })
+{
+  "_id" : "users/1882",
+  "_key" : "1882",
+  "_rev" : "1882"
+}
+
+127.0.0.1:8529@Example> db.users.count()
+3
+
+127.0.0.1:8529@Example> db.users.all().toArray()
+[
+  {
+    "_key" : "1851",
+    "_id" : "users/1851",
+    "_rev" : "1851",
+    "name" : "user 2"
+  },
+  {
+    "_key" : "1882",
+    "_id" : "users/1882",
+    "_rev" : "1882",
+    "Hello" : "World"
+  },
+  {
+    "_key" : "1763",
+    "_id" : "users/1763",
+    "_rev" : "1763",
+    "name" : "user 1"
+  }
+]
+
+127.0.0.1:8529@Example> key=[];
+[ ]
+
+127.0.0.1:8529@Example> for (var i =0; i<10; ++i){
+...> db.users.insert({_key:"test"+i, value:i});
+...> keys.push("test"+i);
+...> }
+JavaScript exception: ReferenceError: keys is not defined
+!keys.push("test"+i);
+!^
+stacktrace: ReferenceError: keys is not defined
+    at <shell command>:3:1
+
+
+127.0.0.1:8529@Example> db.users.insert([{ Hello : "World" }, {Hello: "there"}])
+[
+  {
+    "_id" : "users/2372",
+    "_key" : "2372",
+    "_rev" : "2372"
+  },
+  {
+    "_id" : "users/2376",
+    "_key" : "2376",
+    "_rev" : "2376"
+  }
+]
+
+127.0.0.1:8529@Example> db.users.all().toArray()
+[
+  {
+    "_key" : "1851",
+    "_id" : "users/1851",
+    "_rev" : "1851",
+    "name" : "user 2"
+  },
+  {
+    "_key" : "test0",
+    "_id" : "users/test0",
+    "_rev" : "2239",
+    "value" : 0
+  },
+  {
+    "_key" : "2372",
+    "_id" : "users/2372",
+    "_rev" : "2372",
+    "Hello" : "World"
+  },
+  {
+    "_key" : "2376",
+    "_id" : "users/2376",
+    "_rev" : "2376",
+    "Hello" : "there"
+  },
+  {
+    "_key" : "1882",
+    "_id" : "users/1882",
+    "_rev" : "1882",
+    "Hello" : "World"
+  },
+  {
+    "_key" : "1763",
+    "_id" : "users/1763",
+    "_rev" : "1763",
+    "name" : "user 1"
+  }
+]
+
+127.0.0.1:8529@Example> for (var i = 0; i < 10; ++i) {db.example.insert({ _key: "test" + i, value: i });keys.push("test" + i);}
+JavaScript exception: TypeError: Cannot read property 'insert' of undefined
+!for (var i = 0; i < 10; ++i) {db.example.insert({ _key: "test" + i, value: i });keys.push("test" + i);}
+!                                        ^
+stacktrace: TypeError: Cannot read property 'insert' of undefined
+    at <shell command>:1:41
+
+
+127.0.0.1:8529@Example> keys=[];
+[ ]
+
+127.0.0.1:8529@Example> for (var i = 0; i < 10; ++i) {db.example.insert({ _key: "test" + i, value: i });keys.push("test" + i);}
+JavaScript exception: TypeError: Cannot read property 'insert' of undefined
+!for (var i = 0; i < 10; ++i) {db.example.insert({ _key: "test" + i, value: i });keys.push("test" + i);}
+!                                        ^
+stacktrace: TypeError: Cannot read property 'insert' of undefined
+    at <shell command>:1:41
+
+
+127.0.0.1:8529@Example> keys=[];
+[ ]
+
+127.0.0.1:8529@Example> for (var i = 0; i < 10; ++i) {db.users.insert({ _key: "test" + i, value: i });keys.push("test" + i);}
+JavaScript exception in file 'c:\Program Files\ArangoDB 3.0.10\share\arangodb3\js\client\modules\@arangodb\arangosh.js' at 100,7: ArangoError 1210: cannot create document, unique constraint violated
+!      throw error;
+!      ^
+stacktrace: ArangoError: cannot create document, unique constraint violated
+    at Object.exports.checkRequestResult (c:\Program Files\ArangoDB 3.0.10\share\arangodb3\js\client\modules\@arangodb\arangosh.js:98:21)
+    at ArangoCollection.save.ArangoCollection.insert (c:\Program Files\ArangoDB 3.0.10\share\arangodb3\js\client\modules\@arangodb\arango-collection.js:986:12)
+    at <shell command>:1:40
+
+
+127.0.0.1:8529@Example> db.users.update(users/1882, {"e":5, "f" : 6})
+JavaScript exception: ReferenceError: users is not defined
+!db.users.update(users/1882, {"e":5, "f" : 6})
+!                ^
+stacktrace: ReferenceError: users is not defined
+    at <shell command>:1:17
+
+
+127.0.0.1:8529@Example> db.user.update(users/1882, {"e":5, "f" : 6})
+JavaScript exception: TypeError: Cannot read property 'update' of undefined
+!db.user.update(users/1882, {"e":5, "f" : 6})
+!       ^
+stacktrace: TypeError: Cannot read property 'update' of undefined
+    at <shell command>:1:8
+
+
+127.0.0.1:8529@Example> keys=[];
+[ ]
+
+127.0.0.1:8529@Example> for (var i = 0; i < 10; ++i) {db.user.insert({ _key: "test" + i, value: i });keys.push("test" + i);}
+JavaScript exception: TypeError: Cannot read property 'insert' of undefined
+!for (var i = 0; i < 10; ++i) {db.user.insert({ _key: "test" + i, value: i });keys.push("test" + i);}
+!                                     ^
+stacktrace: TypeError: Cannot read property 'insert' of undefined
+    at <shell command>:1:38
+
+
+127.0.0.1:8529@Example> db.user.update(user/1882, {"e":5, "f" : 6})
+JavaScript exception: TypeError: Cannot read property 'update' of undefined
+!db.user.update(user/1882, {"e":5, "f" : 6})
+!       ^
+stacktrace: TypeError: Cannot read property 'update' of undefined
+    at <shell command>:1:8
+
+
+127.0.0.1:8529@Example> db.users.update(users/1882, {"e":5, "f" : 6})
+JavaScript exception: ReferenceError: users is not defined
+!db.users.update(users/1882, {"e":5, "f" : 6})
+!                ^
+stacktrace: ReferenceError: users is not defined
+    at <shell command>:1:17
+
+
+127.0.0.1:8529@Example> db.users.update("users/1882", {"e":5, "f" : 6})
+{
+  "_id" : "users/1882",
+  "_key" : "1882",
+  "_rev" : "3265",
+  "_oldRev" : "1882"
+}
+
+127.0.0.1:8529@Example> db.users.all().toArray()
+[
+  {
+    "_key" : "1851",
+    "_id" : "users/1851",
+    "_rev" : "1851",
+    "name" : "user 2"
+  },
+  {
+    "_key" : "test0",
+    "_id" : "users/test0",
+    "_rev" : "2239",
+    "value" : 0
+  },
+  {
+    "_key" : "2372",
+    "_id" : "users/2372",
+    "_rev" : "2372",
+    "Hello" : "World"
+  },
+  {
+    "_key" : "2376",
+    "_id" : "users/2376",
+    "_rev" : "2376",
+    "Hello" : "there"
+  },
+  {
+    "_key" : "1882",
+    "_id" : "users/1882",
+    "_rev" : "3265",
+    "Hello" : "World",
+    "e" : 5,
+    "f" : 6
+  },
+  {
+    "_key" : "1763",
+    "_id" : "users/1763",
+    "_rev" : "1763",
+    "name" : "user 1"
+  }
+]
