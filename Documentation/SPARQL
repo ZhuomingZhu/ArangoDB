@@ -1,0 +1,64 @@
+http://stackoverflow.com/questions/34015945/sparql-interface-for-arangodb
+
+How can SPARQL and RDF relate to AQL and ArangoDB?
+
+SPARLQ is a language tailored to work on top of RDF, therefore we first need to compare the datastores:
+
+RDF VS. ArangoDB Collections
+
+While both refer to their entities as 'document' they're different in many ways. While RDF enforces schemata even with custom data types, ArangoDB is schemaless and only supports json specific data types. RDF uses a construct derived from XML-namespaces for these datatypes. These namespaces may be nested. There are implementations storing RDFs in SQL databases. Obviously the RDF grammer has to be translated into ArangoDB collections (similar to these RDF/SQL things). A Foxx service layer could deliver an abstraction that implements these additional datatypes; mapping one namespace to one collection will probably result in many collections with very few documents.
+
+As the Wikipedia describes it in its article over the Resource Description Framework:
+
+For example, one way to represent the notion "The sky has the color blue"
+in RDF is as the triple: a subject denoting "the sky",
+a predicate denoting "has",
+and an object denoting "the color blue". Therefore, RDF swaps object 
+for subject that would be used in the classical notation of an
+entity–attribute–value model within object-oriented design;
+Entity (sky), attribute (color) and value (blue).
+RDF is an abstract model with several serialization formats
+(i.e., file formats),
+and so the particular way in which a resource or triple is encoded
+varies from format to format.
+While RDF has their triple model, ArangoDB rather uses the object oriented design.
+
+So we have this source model in RDF:
+
+sky -hasColor-> blue
+Lets try to map this model to ArangoDB:
+
+If we mimic it being 'similar' to RDF, A namespace will become a collection, each document is an entity in that namespace:
+
+Collection "Objects":
+Document "sky": {_key: "Sky"}
+
+Collection "Colors":
+Document "blue": {_key: "blue"}
+
+EdgeCollection "hasColor"
+Edge {_from: "Objects/sky", _to: "Colors/blue"}
+The object oriented aproach as its native to ArangoDB (and thus allows it to scale best) would translate into something like this:
+
+Collection "Object":
+{
+  _key: "sky"
+  "hasColor": "blue"
+}
+The second aproach utilizes that instead of having a meta-view to your data you already have a pretty sharp picture of your data, You can specify indices (i.e. on hasColor) for better query performance. While the first aproach is a flat mapping of RDF to ArangoDB will produce much overhead; many collections with many very simple documents, no indices easily possible.
+
+SPARQL vs. AQL
+
+While you may map a basic set of SPARQLs WHERE - clauses into AQL FILTER - statements in a Foxx-service (and maybe joins into other collections) using a readily available SPARQL javascript parser may be ineviteable, but may not produce proper results.
+
+I also experimented with some of the javascript RDF parsers to parse some of the publicaly available RDF datasets to import them into ArangoDB, but it seems these js parsers are not yet ready for prime time.
+
+Conclusion
+
+While there are overlappings between RDF + SPARQL and ArangoDB + AQL, there are also significant gaps that would have to be filled. While we would support others filling these gaps, we currently can't focus on that. To deliver a satisfying experience with ArangoDB one would in the end lean on manual translation of the RDF schema, which then most probably can't be queried by automatically translated SPARQL.
+
+Steps that could be taken:
+
+find/fix a RDF parser
+find a smart(er) way than drafted above to automatically convert a RDF schema to a collection schema that scales well with ArangoDB
+Use a parser to parse SPARQL and adopt it to the above schema, and construct AQL from it.
