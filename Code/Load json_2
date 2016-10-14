@@ -11,6 +11,10 @@ import file is too big. please increase the value of --batch-size (currently 167
 array format will be read in buffer which is limited 16MB by default. 
 So suggest line by line format.
 
+CSV file:
+values should be enclosed in double quotes.
+number, boolean values or the null value do not enclosed in double quotes.
+leading zeros in number will be removed. Can be put in double quotes to make them be kept. 
 
 C:\Program Files\ArangoDB 3.0.10\bin>arangoimp.exe --server.database Example --file "test.json" --type json --collection "test1"
 Please specify a password:
