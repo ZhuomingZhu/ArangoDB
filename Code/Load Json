@@ -2,8 +2,8 @@
 { "name" : { "first" : "Jim", "last" : "O'Brady" }, "age" : 19, "likes" : [ "hiking", "singing" ] }
 { "name" : { "first" : "Lisa", "last" : "Jones" }, "dob" : "1981-04-09", "likes" : [ "running" ] }
 
-
-
+Create a json file named data.json
+save it under bin
 
 
 
