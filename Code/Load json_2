@@ -1,5 +1,9 @@
 1. Load Json to different database
 Note: database's name is case-sensitive
+server.endpoint :address of the ArangoDB server (default: tcp://127.0.0.1:8529)
+server.username: username, used if authentication is enabled on server
+server.password: password for user, used if authentication is enabled on server
+
 
 C:\Program Files\ArangoDB 3.0.10\bin>arangoimp.exe --server.database Example --file "test.json" --type json --collection "test1"
 Please specify a password:
