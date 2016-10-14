@@ -15,6 +15,9 @@ https://docs.arangodb.com/cookbook/Administration/ImportingData.html
 AQL&SQL
 https://www.arangodb.com/why-arangodb/sql-aql-comparison/
 
+学习资料
+http://www.linuxdiyf.com/linux/23886.html
+
 ------------------------------------- Help -------------------------------------
 Predefined objects:
   arango:                               ArangoConnection
