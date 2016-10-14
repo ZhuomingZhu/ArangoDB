@@ -4,6 +4,13 @@ server.endpoint :address of the ArangoDB server (default: tcp://127.0.0.1:8529)
 server.username: username, used if authentication is enabled on server
 server.password: password for user, used if authentication is enabled on server
 
+Line by line format (here)
+also support array format.
+(arangoimp --file git-commits-array.json --collection commits --create-collection true)
+import file is too big. please increase the value of --batch-size (currently 16777216).
+array format will be read in buffer which is limited 16MB by default. 
+So suggest line by line format.
+
 
 C:\Program Files\ArangoDB 3.0.10\bin>arangoimp.exe --server.database Example --file "test.json" --type json --collection "test1"
 Please specify a password:
