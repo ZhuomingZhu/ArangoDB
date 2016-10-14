@@ -1,0 +1,18 @@
+C:\Program Files\ArangoDB 3.0.8\bin>arangoimp.exe --file "data.json" --type json --collection "users"
+Please specify a password:
+Connected to ArangoDB 'http+tcp://127.0.0.1:8529', version 3.0.8, database: '_system', username: 'root'
+----------------------------------------
+database:               _system
+collection:             users
+create:                 no
+source filename:        data.json
+file type:              json
+connect timeout:        5
+request timeout:        1200
+----------------------------------------
+Starting JSON import...
+
+created:          3
+warnings/errors:  0
+updated/replaced: 0
+ignored:          0
