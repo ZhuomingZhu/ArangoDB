@@ -17,7 +17,7 @@ return doc
 
 
 
-3. update (web)
+3. update (web)(key cannot be update)
 UPDATE "key name" WITH {
     author: "dsafafd",
     message: "Beijing"
