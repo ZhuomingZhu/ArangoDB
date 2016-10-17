@@ -68,4 +68,57 @@ warnings/errors:  0
 updated/replaced: 0
 ignored:          0
 
-C:\Program Files\ArangoDB 3.0.10\bin>
+------------------------------
+retry 10/17/2016
+
+C:\Program Files\ArangoDB 3.0.8\bin>arangoimp.exe --server.database users --file "C:\Users\zhu2\desktop\my Folder\test.json" --collection "example"
+Please specify a password:
+Connected to ArangoDB 'http+tcp://127.0.0.1:8529', version 3.0.8, database: 'users', username: 'root'
+----------------------------------------
+database:               users
+collection:             example
+create:                 no
+source filename:        C:\Users\zhu2\desktop\my Folder\test.json
+file type:              json
+connect timeout:        5
+request timeout:        1200
+----------------------------------------
+Starting JSON import...
+2016-10-17T14:44:21Z [9044] INFO processed 131068 bytes (3%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 229369 bytes (6%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 327670 bytes (9%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 425971 bytes (12%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 524272 bytes (15%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 622573 bytes (18%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 720874 bytes (21%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 819175 bytes (24%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 917476 bytes (27%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1048544 bytes (30%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1146845 bytes (33%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1245146 bytes (36%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1343447 bytes (39%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1441748 bytes (42%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1540049 bytes (45%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1638350 bytes (48%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1736651 bytes (51%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1834952 bytes (54%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 1933253 bytes (57%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2064321 bytes (60%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2162622 bytes (63%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2260923 bytes (66%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2359224 bytes (69%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2457525 bytes (72%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2555826 bytes (75%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2654127 bytes (78%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2752428 bytes (81%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2850729 bytes (84%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 2949030 bytes (87%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 3080098 bytes (90%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 3178399 bytes (93%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 3276700 bytes (96%) of input file
+2016-10-17T14:44:21Z [9044] INFO processed 3375001 bytes (99%) of input file
+
+created:          20049
+warnings/errors:  0
+updated/replaced: 0
+ignored:          0
