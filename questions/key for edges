@@ -1,3 +1,7 @@
+_key should be unique, I tried it. please do not consider the second part of nt as a key. Consider it as a attribute.
+
+
+
 https://docs.arangodb.com/2.1/Edges/README.html
 
 above link shows that edges collection is almost same as normal collection, but edges have _from and _to, it also contains _key, _id, _rev.
