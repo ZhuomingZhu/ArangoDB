@@ -1,0 +1,5 @@
+https://docs.arangodb.com/2.1/Edges/README.html
+
+above link shows that edges collection is almost same as normal collection, but edges have _from and _to, it also contains _key, _id, _rev.
+
+Thus, we may need to consider the second part of nt as _key.
