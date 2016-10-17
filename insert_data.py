@@ -9,7 +9,7 @@ client = ArangoClient(
     enable_logging=True
 )
 
-graph = client.db('my_py_database').graph('my_graph')
+graph = client.db('example').graph('my_graph')
 students = graph.vertex_collection('students')
 courses = graph.vertex_collection('courses')
 
