@@ -23,3 +23,11 @@ UPDATE "key name" WITH {
     message: "Beijing"
 } IN users
 
+
+REPLACE {
+    _key: "NatachaDeclerck",
+    firstName: "Natacha",
+    name: "Leclerc",
+    status: "active",
+    level: "premium"
+} IN users
