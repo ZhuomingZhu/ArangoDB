@@ -1,0 +1,25 @@
+1. Insert(web)
+insert{
+author: "test1",
+message:"test1.1",
+sha: "test1.2",
+time: "test1.3"
+}
+in example
+
+
+2. return with conditions (web)(limit 1000)
+for doc in example
+filter doc.author == "jsteemann"
+sort doc._key desc
+limit 10
+return doc
+
+
+
+3. update (web)
+UPDATE "key name" WITH {
+    author: "dsafafd",
+    message: "Beijing"
+} IN users
+
