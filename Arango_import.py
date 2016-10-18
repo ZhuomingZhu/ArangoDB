@@ -25,12 +25,12 @@ def graph_create():
 
 import re # package for regualar expression
 
-string = '... | sku: 01234 | price: 150 | sku: 99872453 | blah blah ... '
-print (re.findall(r'sku[\s:]*(\d*)', string)[0])
-
-print (re.findall(r'sku[\s:]*(\d*)', string)[1])
-
-count = 0
+# string = '... | sku: 01234 | price: 150 | sku: 99872453 | blah blah ... '
+# print (re.findall(r'sku[\s:]*(\d*)', string)[0])
+#
+# print (re.findall(r'sku[\s:]*(\d*)', string)[1])
+#
+# count = 0
 
 
 
