@@ -1,0 +1,8 @@
+SQL	                    AQL
+database	              database
+table	                  collection
+row	                    document
+column	                attribute
+table joins	            collection joins
+primary key	            primary key (automatically present on _key attribute)
+index	                  index
