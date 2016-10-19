@@ -7,13 +7,36 @@ time: "test1.3"
 }
 in example
 
+also support multiple insert
+insert [
+{},{}
+]
+in collection_name
 
+insert from others
+for user in users
+filter user.id == 1
+insert user into newUsers
+
+loop(good for test)
+FOR i IN 1..1000
+  INSERT {
+    name: CONCAT("test", i),
+    gender: (i % 2 == 0 ? "f" : "m")
+  }
+  INTO users
+  
+  
 2. return with conditions (web)(limit 1000)
 for doc in example
 filter doc.author == "jsteemann"
 sort doc._key desc
 limit 10
-return doc
+return doc (or {
+    name: CONCAT(user.firstName, " ",
+                 user.lastName),
+    gender: user.gender
+  })
 
 
 
@@ -23,6 +46,29 @@ UPDATE "key name" WITH {
     message: "Beijing"
 } IN users
 
+UPDATE { _key: "1" }
+  WITH { name: "John Smith" }
+  IN users
+
+add new row
+FOR user IN users
+  UPDATE user 
+    WITH { numberOfLogins: 0 } IN users
+
+nest(test needed)
+FOR user IN users
+  FILTER user.active == 1
+    UPDATE user 
+      WITH { 
+        numberOfLogins: LENGTH(
+          FOR login IN logins 
+            FILTER login.user == user._key 
+            COLLECT WITH COUNT INTO numLogins 
+            RETURN numLogins 
+        )
+      } IN users
+    
+
 
 REPLACE {
     _key: "NatachaDeclerck",
@@ -31,3 +77,16 @@ REPLACE {
     status: "active",
     level: "premium"
 } IN users
+
+
+Delete:
+REMOVE { _key:"1" } 
+  IN users
+  
+FOR user IN users
+  FILTER user.active == 1
+  REMOVE user IN users
+  
+  
+ AGGREGATION
+ JOIN
