@@ -34,6 +34,14 @@ FOR emp IN employee
   FOR manager IN employee
     FILTER emp.manager == manager.empid
     RETURN concat(emp.lastname," ", manager.lastname)
+    
+    
+FOR emp IN employee 
+   For link in managedby
+    FILTER emp._id == link._from
+        for manager in employee
+            filter manager._id == link._to
+    RETURN concat (emp.lastname, " " ,manager.lastname)
 
 
 2.lists the names of the employees who work for Employee 18
