@@ -12,6 +12,10 @@ WHERE {
 }
 
 
+FOR emp in employee
+filter contains(emp.lastname, "John")
+RETURN emp.lastname
+
 
 
 1. select the names of employees and their managers
