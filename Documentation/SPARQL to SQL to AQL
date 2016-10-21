@@ -1,5 +1,19 @@
 https://www.w3.org/2008/07/MappingRules/StemMapping
 
+Class example:
+SELECT DISTINCT ?drug ?kBDrug  //distinct mean only one
+WHERE {
+  ?drug drugbank:drugCategory ?label .
+  FILTER regex(str(?label), "anticoagulant") .  // Filter regex use to check containing certain word
+  ?drug drugbank:casRegistryNumber ?id .
+  SERVICE <http://dbmi-icode-01.dbmi.pitt.edu:2020/>{  //another conditionals used to get info from other tables
+    ?kBDrug rdf:type linked: .     
+  }
+}
+
+
+
+
 1. select the names of employees and their managers
 SPARQL:
 PREFIX emplP: <http://hr.example/DB/Employee#>
