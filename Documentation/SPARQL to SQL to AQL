@@ -30,6 +30,10 @@ SELECT emp.lastName, manager.lastName
  WHERE emp.lastName IS NOT NULL AND manager.lastName IS NOT NULL
 
 AQL:
+FOR emp IN employee 
+  FOR manager IN employee
+    FILTER emp.manager == manager.empid
+    RETURN concat(emp.lastname," ", manager.lastname)
 
 
 2.lists the names of the employees who work for Employee 18
@@ -47,6 +51,9 @@ SELECT emp.lastName
  WHERE emp.manager=18 AND emp.lastName IS NOT NULL
 
 AQL:
+FOR emp IN employee 
+    FILTER emp.manager == 18
+    RETURN emp.lastname
 
 3. a constraint on the manager's last name:
 SPARQL:
@@ -57,7 +64,6 @@ SELECT ?empName
          ?emp      emplP:manager    ?manager .
          ?manager  emplP:lastName   "Johnson" }
 
-
 SQL:
 SELECT emp.lastName
   FROM Employee as emp
@@ -65,6 +71,10 @@ SELECT emp.lastName
  WHERE manager.lastName="Johnson" AND emp.lastName IS NOT NULL
 
 AQL:
+FOR emp IN employee 
+  FOR manager IN employee
+    FILTER emp.manager == manager.empid and manager.lastname == "Johnson"
+    RETURN emp.lastname
 
 4. miltiple join
 SPARQL:
