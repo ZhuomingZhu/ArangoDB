@@ -1,0 +1,76 @@
+https://www.w3.org/2008/07/MappingRules/StemMapping
+
+1. select the names of employees and their managers
+SPARQL:
+PREFIX emplP: <http://hr.example/DB/Employee#>
+
+SELECT ?empName ?managName
+ WHERE { ?emp      emplP:lastName   ?empName .
+         ?emp      emplP:manager    ?manager .
+         ?manager  emplP:lastName   ?managName }
+         
+SQL:
+SELECT emp.lastName, manager.lastName
+  FROM Employee as emp
+       INNER JOIN Employee as manager ON emp.manager=manager.empid
+ WHERE emp.lastName IS NOT NULL AND manager.lastName IS NOT NULL
+
+AQL:
+
+
+2.lists the names of the employees who work for Employee 18
+SPARQL:
+PREFIX emplP: <http://hr.example/DB/Employee#>
+PREFIX emplN: <http://hr.example/DB/Employee/>
+
+SELECT ?empName
+ WHERE { ?emp      emplP:lastName   ?empName .
+         ?emp      emplP:manager    emplN:id.18 }
+
+SQL: 
+SELECT emp.lastName
+  FROM Employee as emp
+ WHERE emp.manager=18 AND emp.lastName IS NOT NULL
+
+AQL:
+
+3. a constraint on the manager's last name:
+SPARQL:
+PREFIX emplP: <http://hr.example/DB/Employee#>
+
+SELECT ?empName
+ WHERE { ?emp      emplP:lastName   ?empName .
+         ?emp      emplP:manager    ?manager .
+         ?manager  emplP:lastName   "Johnson" }
+
+
+SQL:
+SELECT emp.lastName
+  FROM Employee as emp
+       INNER JOIN Employee as manager ON emp.manager=manager.empid
+ WHERE manager.lastName="Johnson" AND emp.lastName IS NOT NULL
+
+AQL:
+
+4. miltiple join
+SPARQL:
+PREFIX emplP: <http://hr.example/DB/Employee#>
+
+SELECT ?empName ?grandManName
+ WHERE { ?emp          emplP:lastName   ?empName .
+         ?emp          emplP:birthday   ?empBday .
+         ?emp          emplP:manager    ?manager .
+         ?manager      emplP:birthday   ?manBday .
+         ?manager      emplP:manager    ?grandManager .
+         ?grandManager emplP:birthday   ?grandManBday .
+         ?grandManager emplP:lastName   ?grandManName
+         FILTER (?manBday < ?empBday && ?grandManBday < ?manBday) }
+
+
+SQL:
+SELECT emp.lastName AS empName, grandManager.lastName AS grandManagerName
+  FROM Employee AS emp
+       INNER JOIN Employee AS manager ON manager.empid=emp.manager
+       INNER JOIN Employee AS grandManager ON grandManager.empid=manager.manager
+ WHERE grandManager.birthday<manager.birthday AND manager.birthday<emp.birthday
+   AND emp.lastName IS NOT NULL AND grandManager.lastName IS NOT NULL
