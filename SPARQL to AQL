@@ -1,0 +1,14 @@
+SELECT DISTINCT * WHERE {
+  ?s ?p ?o
+}
+LIMIT 10
+
+FOR subject IN subjects 
+   For link in links
+    FILTER subject._id == link._from
+        for object in subjects
+            filter object._id == link._to
+    RETURN concat (subject.subject_name, link.link_value ,object.subject_name)
+    
+______________________________________________________
+
