@@ -77,6 +77,7 @@ ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf
 FOR subject IN subjects
     FOR name IN ATTRIBUTES(subject)
       FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
+      SORT name
       RETURN concat(
       name,": ",subject[name])
       
