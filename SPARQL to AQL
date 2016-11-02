@@ -1,8 +1,11 @@
+Example 1:
+SPARQL:
 SELECT DISTINCT * WHERE {
   ?s ?p ?o
 }
 LIMIT 10
 
+AQL:
 FOR subject IN subjects 
    For link in links
     FILTER subject._id == link._from
@@ -12,12 +15,15 @@ FOR subject IN subjects
     RETURN concat (subject.subject_name, link.link_value ,object.subject_name)
     
 ______________________________________________________
+Example 2:
+SPARQL:
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT ?subject ?label
 WHERE { ?subject drugbank:drugCategory ?label . 
  FILTER regex(str(?label), "anti")
 } LIMIT 100
 
+AQL:
 FOR subject IN subjects
     FOR name IN ATTRIBUTES(subject)
       FILTER LIKE(name, 'chemicalFormula')
@@ -65,7 +71,8 @@ limit 25
 RETURN ZIP(attributes[*].name, attributes[*].value)
 
 __________________________________________________________
-
+Example 3:
+SPARQL:
 SELECT DISTINCT ?property ?hasValue ?isValueOf
 WHERE {
   { <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00001> ?property ?hasValue }
@@ -74,6 +81,7 @@ WHERE {
 }
 ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf
 
+AQL:
 FOR subject IN subjects
     FOR name IN ATTRIBUTES(subject)
       FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
