@@ -18,11 +18,15 @@ WHERE { ?subject drugbank:drugCategory ?label .
  FILTER regex(str(?label), "anti")
 } LIMIT 100
 
+FOR subject IN subjects
+    FOR name IN ATTRIBUTES(subject)
+      FILTER LIKE(name, 'chemicalFormula')
+      filter like(subject[name], 'C19%')
+      limit 100
+      RETURN concat(
+      subject.subject_name," ",subject[name])
 
-
-
-
-for future use:
+//for future use:
 FOR subject IN subjects
   LET result = (
     FOR name IN ATTRIBUTES(subject)
@@ -59,3 +63,21 @@ FOR subject IN subjects
   )
 limit 25
 RETURN ZIP(attributes[*].name, attributes[*].value)
+
+__________________________________________________________
+
+SELECT DISTINCT ?property ?hasValue ?isValueOf
+WHERE {
+  { <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00001> ?property ?hasValue }
+  UNION
+  { ?isValueOf ?property <http://wifo5-04.informatik.uni-mannheim.de/drugbank/resource/drugs/DB00001> }
+}
+ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf
+
+FOR subject IN subjects
+    FOR name IN ATTRIBUTES(subject)
+      FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
+      RETURN concat(
+      name,": ",subject[name])
+      
+      
