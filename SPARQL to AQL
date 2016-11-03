@@ -82,6 +82,24 @@ WHERE {
 ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf
 
 AQL:
+let a =(
+FOR subject IN subjects
+      FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
+    return {attri: subject}
+)
+
+let b=(
+FOR subject IN subjects
+      FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
+for link in links
+    filter link._from == subject._id
+      RETURN {link: link}
+      )
+      
+return {aaaaa:a,
+bbbbb:b}
+
+for future use:
 FOR subject IN subjects
     FOR name IN ATTRIBUTES(subject)
       FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
