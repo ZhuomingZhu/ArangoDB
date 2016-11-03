@@ -18,6 +18,9 @@ https://www.arangodb.com/why-arangodb/sql-aql-comparison/
 学习资料
 http://www.linuxdiyf.com/linux/23886.html
 
+aql:
+http://www.slideshare.net/arangodb/aql-22599937
+
 ------------------------------------- Help -------------------------------------
 Predefined objects:
   arango:                               ArangoConnection
