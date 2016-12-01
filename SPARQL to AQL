@@ -96,8 +96,8 @@ for link in links
       RETURN {link: link}
       )
       
-return {aaaaa:a,
-bbbbb:b}
+return {attribute name:a,
+attribute value:b}
 
 for future use:
 FOR subject IN subjects
