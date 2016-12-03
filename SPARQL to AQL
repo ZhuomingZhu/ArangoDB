@@ -12,7 +12,7 @@ FOR subject IN subjects
         for object in subjects
             filter object._id == link._to
     limit 10
-    RETURN concat (subject.subject_name, link.link_value ,object.subject_name)
+    RETURN distinct concat (subject.subject_name, link.link_value ,object.subject_name)
     
 ______________________________________________________
 Example 2:
