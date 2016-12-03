@@ -87,7 +87,7 @@ FOR subject IN subjects
       FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
   for name in attributes(subject)
     filter name != "_key" and name != "_id" and name != "_rev"  
-    RETURN concat (name, ":", subject[name])
+    RETURN concat (name, " : ", subject[name])
 )
 
 let b=(
@@ -97,7 +97,7 @@ for link in links
     filter link._from == subject._id
     for name in attributes(link)
     filter name != "_key" and name != "_from" and name != "_to" and name != "_id" and name != "_rev"
-      RETURN concat (name, ":", link[name])
+      RETURN concat (name, " : ", link[name])
       )
       
 return {attribute:a,
