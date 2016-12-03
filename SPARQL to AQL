@@ -24,6 +24,7 @@ WHERE { ?subject drugbank:drugCategory ?label .
 } LIMIT 100
 
 AQL:
+
 FOR subject IN subjects
     FOR name IN ATTRIBUTES(subject)
       FILTER LIKE(name, 'chemicalFormula')
@@ -31,6 +32,20 @@ FOR subject IN subjects
       limit 100
       RETURN concat(
       subject.subject_name," ",subject[name])
+
+
+New: ==============
+
+For subject in subjects    
+    FOR link IN links
+        FOR name IN ATTRIBUTES(link)
+        FILTER LIKE(name, 'link_value')
+        filter like(link[name], '%anti%')
+        filter link._from == subject._id
+        limit 100
+        RETURN concat(
+        subject.subject_name," ",link[name])
+// =========================================
 
 //for future use:
 FOR subject IN subjects
