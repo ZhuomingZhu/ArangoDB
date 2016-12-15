@@ -215,6 +215,7 @@ with open('/Users/suesalito/Desktop/ArangoDB/sample55.nt') as f:
                 # print (attribute_name)
                 attribute_name[0] = attribute_name[0].replace("-", "_")
                 attribute_name[0] = attribute_name[0].replace("#", "_")
+                attribute_name[0] = attribute_name[0].replace(".", "_")
                 # print ("TEST",attribute_name[0])
                 graph_insert_attribute(sv,attribute_name[0],value)
             # print (re.findall(r'"(.+?)"', string))

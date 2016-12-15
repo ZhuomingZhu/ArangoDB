@@ -2,6 +2,7 @@
 from arango import ArangoClient
 import pandas as pd
 import numpy as np
+import re # package for regular expression
 
 # declare the client connection
 client = ArangoClient(
@@ -16,7 +17,7 @@ enable_logging=True
 def graph_create():
 
     # Create a new graph
-    graph = client.db('my_py_database2').create_graph('drug_bank')
+    graph = client.db('my_py_database3').create_graph('drug_bank')
     subjects = graph.create_vertex_collection('subjects')
     # objects = graph.create_vertex_collection('objects')
     links = graph.create_edge_definition(
@@ -25,7 +26,7 @@ def graph_create():
         to_collections=['subjects']
     )
 
-import re # package for regualar expression
+
 
 def get_type(type):
     check = None
@@ -51,7 +52,7 @@ def get_type(type):
 
 def graph_insert_withlink(sv,ov,linkv):
     # create the connection to insert the graph
-    graph = client.db('my_py_database2').graph('drug_bank')
+    graph = client.db('my_py_database3').graph('drug_bank')
     subjects = graph.vertex_collection('subjects')
     objects = graph.vertex_collection('subjects')
     # # List existing edge definitions
@@ -59,7 +60,7 @@ def graph_insert_withlink(sv,ov,linkv):
     # # Retrieve an existing edge collection name
     links = graph.edge_collection('links')
 
-    db = client.database('my_py_database2')
+    db = client.database('my_py_database3')
 
     # Insert vertices
     # subjects.insert({'_key': 'snode03', 'subject_name': sv})
@@ -112,7 +113,7 @@ def graph_insert_withlink(sv,ov,linkv):
 
 def graph_insert_attribute(sv,at,atv):
     # create the connection to insert the graph
-    graph = client.db('my_py_database2').graph('drug_bank')
+    graph = client.db('my_py_database3').graph('drug_bank')
     subjects = graph.vertex_collection('subjects')
     objects = graph.vertex_collection('subjects')
     # # List existing edge definitions
@@ -120,7 +121,7 @@ def graph_insert_attribute(sv,at,atv):
     # # Retrieve an existing edge collection name
     links = graph.edge_collection('links')
 
-    db = client.database('my_py_database2')
+    db = client.database('my_py_database3')
 
     # Insert vertices
     # subjects.insert({'_key': 'snode03', 'subject_name': sv})
@@ -129,6 +130,7 @@ def graph_insert_attribute(sv,at,atv):
     o_exisiting_key = None
     # Execute an AQL query to get the subject key if duplicate node
     result = db.aql.execute('FOR user IN subjects FILTER user.subject_name == "'+sv+'" return user')
+    # Result.batch is a return data structure from Arango, if it is not null, it means the record found
     if (len(result.batch()) > 0):
         # print ('found subject key')
         s_exisiting_key = result.batch()[0]['_key']
@@ -171,7 +173,7 @@ type_list = df_type.iloc[0:,0:].values
 print (type_list)
 print (type_list[0,0])
 
-with open('/Users/suesalito/Desktop/ArangoDB/sample55.nt') as f:
+with open('/Users/suesalito/Desktop/ArangoDB/drugbank_dump.nt') as f:
     for line in f:
         string = line
         # print ()
@@ -215,6 +217,7 @@ with open('/Users/suesalito/Desktop/ArangoDB/sample55.nt') as f:
                 # print (attribute_name)
                 attribute_name[0] = attribute_name[0].replace("-", "_")
                 attribute_name[0] = attribute_name[0].replace("#", "_")
+                attribute_name[0] = attribute_name[0].replace(".", "_")
                 # print ("TEST",attribute_name[0])
                 graph_insert_attribute(sv,attribute_name[0],value)
             # print (re.findall(r'"(.+?)"', string))
