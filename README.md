@@ -5,4 +5,4 @@ Developers:Pornpoj Hongwattanakul & Zhuoming Zhu
 
 Advisor: Jianwu Wang
 
-The project is about to apply the Arango graph database for Dragbank data
+The project is about to apply the Arango graph database for Drugbank data
