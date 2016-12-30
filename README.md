@@ -16,5 +16,5 @@ Note:
 
 1. The project use pre-defined type data (drugbank_node_typex.csv) which is available from https://github.com/aanam?tab=repositories
 
-2. The project is based on the nt file extention (tripple) dataset only. We do have a small dataset ex. sample.nt
+2. The project is based on the nt file extention (tripple) dataset only. We do have a small dataset ex. sample.nt for sctipt testing.
 
