@@ -13,6 +13,8 @@ The optimized upload data code can be refered at Arange_import4_noprint.py
 whereas the detail version can be refered at Arange_import4_print.py
 
 Note: 
+
 1. The project use pre-defined type data (drugbank_node_typex.csv) which is available from https://github.com/aanam?tab=repositories
+
 2. The project is based on the nt file extention (tripple) dataset only. We do have a small dataset ex. sample.nt
 
