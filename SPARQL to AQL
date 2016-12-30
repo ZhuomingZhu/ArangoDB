@@ -25,65 +25,14 @@ WHERE { ?subject drugbank:drugCategory ?label .
 
 AQL:
 
-FOR subject IN subjects
-    FOR name IN ATTRIBUTES(subject)
-      FILTER LIKE(name, 'chemicalFormula')
-      filter like(subject[name], 'C19%')
-      limit 100
-      RETURN concat(
-      subject.subject_name," ",subject[name])
-
-
-New: ==============
-
-For subject in subjects    
+For subject in subjects	
     FOR link IN links
         FOR name IN ATTRIBUTES(link)
-        FILTER LIKE(name, 'link_value')
-        filter like(link[name], '%anti%')
-        filter link._from == subject._id
-        limit 100
-        RETURN concat(
-        subject.subject_name," ",link[name])
-// =========================================
-
-//for future use:
-FOR subject IN subjects
-  LET result = (
-    FOR name IN ATTRIBUTES(subject)
-      FILTER LIKE(name, '%chemical%')
-      RETURN {
-        name: name,
-        value1: subject.subject_name
-      }
-  )
-  limit 5
-  RETURN concat(result[*].name, result[*].value1)
-  RETURN zip(result[*].value1, result[*].name)
-
-FOR subject IN subjects
-  LET attributes = (
-    FOR name IN ATTRIBUTES(subject)
-      FILTER LIKE(subject[name], '%anti%')
-      RETURN {
-        name: name,
-        value: subject[name]
-      }
-  )
-limit 5
-RETURN ZIP(attributes[*].name, attributes[*].value)
-
-FOR subject IN subjects
-  LET attributes = (
-    FOR name IN ATTRIBUTES(subject)
-      FILTER LIKE(subject[name], '%anti%')
-      RETURN {
-        name: subject.subject_name,
-        value: name
-      }
-  )
-limit 25
-RETURN ZIP(attributes[*].name, attributes[*].value)
+        	FILTER LIKE(name, 'link_value')
+        	FILTER LIKE(link[name], '%anti%')
+        	FILTER link._from == subject._id
+LIMIT 100
+RETURN CONCAT(subject.subject_name," ",link[name])
 
 __________________________________________________________
 Example 3:
@@ -99,31 +48,23 @@ ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf
 AQL:
 let a =(
 FOR subject IN subjects
-      FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
-  for name in attributes(subject)
-    filter name != "_key" and name != "_id" and name != "_rev"  
-    RETURN concat (name, " : ", subject[name])
+ FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
+  FOR name IN ATTRIBUTES(subject)
+   FILTER name != "_key" AND name != "_id" AND name != "_rev" 
+RETURN CONCAT (name, " : ", subject[name])
 )
-
+ 
 let b=(
 FOR subject IN subjects
-      FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
-for link in links
-    filter link._from == subject._id
-    for name in attributes(link)
-    filter name != "_key" and name != "_from" and name != "_to" and name != "_id" and name != "_rev"
-      RETURN concat (name, " : ", link[name])
+ FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
+  FOR link IN links
+   FILTER link._from == subject._id
+    FOR name IN ATTRIBUTES(link)
+     FILTER name != "_key" AND name != "_from" AND name != "_to" AND name != "_id" AND name != "_rev"
+RETURN CONCAT (name, " : ", link[name])
       )
-      
-return {attribute:a,
-link:b}
+     
+RETURN {attribute:a, link:b}
 
-for future use:
-FOR subject IN subjects
-    FOR name IN ATTRIBUTES(subject)
-      FILTER subject.subject_name == "http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugs/DB00393"
-      SORT name
-      RETURN concat(
-      name,": ",subject[name])
-      
+
       
